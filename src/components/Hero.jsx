@@ -1,4 +1,4 @@
-import { Globe, MapPinHouse } from "lucide-react";
+import { ArrowBigDownDash, Globe, MapPinHouse } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 import { Button } from "./ui/button";
@@ -49,7 +49,10 @@ export default function Hero() {
               smart)
             </p>
           </div>
-          <Button>Download My Resume</Button>
+          <Button>
+            <ArrowBigDownDash className="mr-2" />
+            <span>Download My Resume</span>
+          </Button>
         </div>
       </div>
     </section>
