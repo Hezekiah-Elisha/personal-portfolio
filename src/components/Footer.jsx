@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function Footer() {
   return (
-    <div className='bg-accent text-accent-foreground'>
+    <div className='bg-accent text-accent-foreground mt-10'>
         <footer className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 font-space-mono">
             <div className="text-center">
             <p className="text-sm">

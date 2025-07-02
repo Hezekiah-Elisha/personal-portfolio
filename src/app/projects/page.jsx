@@ -7,7 +7,7 @@ export default function page() {
       <h1 className="text-3xl font-bold text-center mt-10">Projects</h1>
       <p className="text-center mt-4">Here are some of my recent projects.</p>
       <div className="w-full">
-        <h2 className="text-3xl font-bold mb-6">Frontend Projects</h2>
+        <h2 className="text-3xl font-bold mb-6">Front-end Projects</h2>
         <div className="space-y-8">
           <FrontendProject />
           <FrontendProject
@@ -26,6 +26,12 @@ export default function page() {
             codeUrl="/"
             technologies={["React", "Next.js", "Tailwind CSS", "Redux"]}
           />
+        </div>
+      </div>
+      <div className="w-full mt-16">
+        <h2 className="text-3xl font-bold mb-6">Back-end Projects</h2>
+        <div className="space-y-8">
+          <FrontendProject />
         </div>
       </div>
     </div>
