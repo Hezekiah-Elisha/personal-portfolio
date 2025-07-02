@@ -7,7 +7,6 @@ export default function page() {
     <main className="space-y-8">
       <Hero />
       <Technologies />
-      <Footer />
     </main>
   );
 }
