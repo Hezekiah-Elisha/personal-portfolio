@@ -1,7 +1,8 @@
-import { Globe } from "lucide-react";
+import { Globe, MapPinHouse } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 import { Button } from "./ui/button";
+import LoadingAnimation from "./LoadingAnimation";
 
 export default function Hero() {
   return (
@@ -22,13 +23,17 @@ export default function Hero() {
             About Me
           </h1> */}
           <h2 className="text-3xl font-bold">Hey, I&apos;m Hezekiah Elisha</h2>
+          <div>
+            <MapPinHouse className="inline-block mr-2" />
+            <span className="text-sm">Nairobi, Kenya</span>
+          </div>
           <p className="text-sm w-full">
             I&apos;m a Software Engineer From Nairobi, Kenya. I have a passion
-            for building web and mobile applications, and exploring new technologies. My
-            journey in software development began with a curiosity about how
-            things work, and it has since evolved into a full-fledged career
-            path. I enjoy tackling complex problems and finding elegant
-            solutions through code.
+            for building web and mobile applications, and exploring new
+            technologies. My journey in software development began with a
+            curiosity about how things work, and it has since evolved into a
+            full-fledged career path. I enjoy tackling complex problems and
+            finding elegant solutions through code.
           </p>
 
           <div className="align-bottom backdrop-blur-xl p-4 rounded-lg bg-white/30 flex flex-col space-y-2">
@@ -39,7 +44,10 @@ export default function Hero() {
               of technology to transform lives and communities, and I strive to
               contribute positively to the tech ecosystem.
             </p>
-            <p className="italic">Make Software, Great Again!</p>
+            <p className="italic">
+              I can assure you that I am very coachable and I work very hard(and
+              smart)
+            </p>
           </div>
           <Button>Download My Resume</Button>
         </div>

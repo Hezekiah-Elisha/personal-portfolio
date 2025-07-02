@@ -1,6 +1,6 @@
 import React from "react";
 import { Alert, AlertDescription, AlertTitle } from "./ui/alert";
-import { Terminal } from "lucide-react";
+import { Asterisk } from "lucide-react";
 
 export default function Technologies() {
   return (
@@ -19,7 +19,6 @@ export default function Technologies() {
             <li>HTML5 and CSS3</li>
             <li>Tailwind CSS and Bootstrap</li>
             <li>Git and GitHub</li>
-            <li>RESTful APIs</li>
             <li>MongoDB and SQL databases</li>
           </ul>
         </div>
@@ -42,7 +41,7 @@ export default function Technologies() {
           </ul>
         </div>
         <Alert variant="default | destructive">
-          <Terminal />
+          <Asterisk />
           <AlertTitle>Heads up!</AlertTitle>
           <AlertDescription>
             <p className="mt-4">
