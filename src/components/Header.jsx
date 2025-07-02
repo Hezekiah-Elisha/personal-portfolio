@@ -17,7 +17,7 @@ import { Button } from "./ui/button";
 
 export default function Header() {
   return (
-    <nav className="bg-secondary/95 backdrop-blur-md shadow-lg z-50 py-5">
+    <nav className="sticky top-0 bg-secondary/30 backdrop-blur-3xl shadow-sm z-50 py-5 mb-4">
       <div className="flex flex-row justify-between items-center w-full container mx-auto px-4 sm:px-6 lg:px-8 ">
         <div className="font-space-mono font-bold">
           <Link href="/" className="text-2xl">
