@@ -1,3 +1,4 @@
+"use client";
 import { ModeToggle } from "./ModeToggle";
 import Link from "next/link";
 import { Menu } from "lucide-react";
@@ -11,11 +12,16 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "./ui/sheet";
-import { Label } from "./ui/label";
-import { Input } from "./ui/input";
 import { Button } from "./ui/button";
+import { usePathname } from "next/navigation";
 
 export default function Header() {
+  const pathname = usePathname();
+  
+  // Hide header on dashboard pages
+  if (pathname?.startsWith('/dashboard')) {
+    return null;
+  }
   return (
     <nav className="sticky top-0 bg-secondary/30 backdrop-blur-3xl shadow-sm z-50 py-5 mb-4">
       <div className="flex flex-row justify-between items-center w-full container mx-auto px-4 sm:px-6 lg:px-8 ">
@@ -25,20 +31,38 @@ export default function Header() {
           </Link>
         </div>
         <div className="hidden md:flex flex-row items-center space-x-4">
-          <Link href="/" className="px-4 py-2 font-space-mono">
+          <Link
+            href="/"
+            className="px-4 py-2 font-space-mono hover:underline hover:underline-offset-8"
+          >
             Home
           </Link>
-          <Link href="/" className="px-4 py-2 font-space-mono">
+          <Link
+            href="/"
+            className="px-4 py-2 font-space-mono hover:underline hover:underline-offset-8"
+          >
             AboutMe
           </Link>
-          <Link href="/contact" className="px-4 py-2 font-space-mono">
+          <Link
+            href="/contact"
+            className="px-4 py-2 font-space-mono hover:underline hover:underline-offset-8"
+          >
             Contact
           </Link>
-          <Link href="/projects" className="px-4 py-2 font-space-mono">
+          <Link
+            href="/projects"
+            className="px-4 py-2 font-space-mono hover:underline hover:underline-offset-8"
+          >
             Projects
           </Link>
           <Link href="/" className="px-4 py-2 font-space-mono">
             Blog
+          </Link>
+          <Link
+            href="/signin"
+            className="px-4 py-2 font-space-mono underline underline-offset-8"
+          >
+            Sign In
           </Link>
           <ModeToggle />
         </div>
@@ -71,6 +95,9 @@ export default function Header() {
                 </Link>
                 <Link href="/" className="px-4 py-2 font-space-mono">
                   Blog
+                </Link>
+                <Link href="/signin" className="px-4 py-2 font-space-mono">
+                  Sign In
                 </Link>
               </div>
               <SheetFooter>
