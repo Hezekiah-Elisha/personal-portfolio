@@ -29,6 +29,7 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar";
+import { NavExperiences } from "./nav-experiences";
 
 // This is sample data.
 const data = {
@@ -158,6 +159,23 @@ const data = {
       icon: Map,
     },
   ],
+  experiences: [
+    {
+      name: "Experience A",
+      url: "/dashboard/experiences/",
+      icon: Frame,
+    },
+    {
+      name: "Project B",
+      url: "#",
+      icon: PieChart,
+    },
+    {
+      name: "Project C",
+      url: "#",
+      icon: Map,
+    },
+  ],
 };
 
 export function AppSidebar({ ...props }) {
@@ -184,6 +202,7 @@ export function AppSidebar({ ...props }) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
+        <NavExperiences experiences={data.experiences} />
         <NavMain items={data.navMain} />
         <NavProjects projects={data.projects} />
       </SidebarContent>
