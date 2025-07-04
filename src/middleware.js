@@ -13,14 +13,11 @@ const protectedRoutes = [
 export async function middleware(request) {
   const path = request.nextUrl.pathname;
   const isProtectedRoute = protectedRoutes.includes(path);
-  console.log("Request path:", path);
 
   if (isProtectedRoute) {
     const accessToken = request.cookies.get("token")?.value;
-    console.log("Access token:", accessToken);
 
     if (!accessToken) {
-      console.log("No access token found, redirecting to sign in page.");
       return NextResponse.redirect(new URL("/signin", request.nextUrl));
     }
     return NextResponse.next();
