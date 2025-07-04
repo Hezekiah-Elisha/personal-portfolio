@@ -2,10 +2,25 @@
 import { instance } from "@/api";
 import LoadingAnimation from "@/components/LoadingAnimation";
 import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import { RotateCcw } from "lucide-react";
 import React, { useEffect, useState } from "react";
 
 export default function ExperiencePage() {
+  const [date, setDate] = useState(new Date());
   const [experiences, setExperiences] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -27,12 +42,96 @@ export default function ExperiencePage() {
 
   return (
     <div className="flex flex-1 flex-col gap-4 p-4 pt-0 font-space-mono">
-      <div className="flex flex-row items-center justify-between mb-4">
+      <div className="flex flex-row items-center align-middle justify-between mb-4">
         <h2 className="text-2xl font-bold mb-4">Experiences</h2>
-        <div>
-          <Button onClick={fetchExperiences} className="">
+        <div className="flex flex-row items-center gap-2 align-middle justify-end">
+          <Button onClick={fetchExperiences} className="" variant="outline">
             <RotateCcw className="inline hover:rotate-180 transition-transform duration-1000" />
           </Button>
+          <Dialog>
+            <form className="font-space-mono">
+              <DialogTrigger asChild>
+                <Button variant="outline" className="cursor-pointer">
+                  Create Experience
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-[425px] font-space-mono">
+                <DialogHeader>
+                  <DialogTitle>Create Work Experience</DialogTitle>
+                  <DialogDescription>
+                    Fill in the details of your work experience to add it to
+                    your profile.
+                  </DialogDescription>
+                </DialogHeader>
+                <div className="grid gap-4">
+                  <div className="grid gap-3">
+                    <Label htmlFor="name-1">Title</Label>
+                    <Input
+                      id="name-1"
+                      name="name"
+                      defaultValue="Pedro Duarte"
+                    />
+                  </div>
+                  <div className="grid gap-3">
+                    <Label htmlFor="name-1">Company Name</Label>
+                    <Input
+                      id="name-1"
+                      name="name"
+                      defaultValue="Pedro Duarte"
+                    />
+                  </div>
+
+                  <div className="grid gap-3">
+                    <Label htmlFor="name-1">Location</Label>
+                    <Input
+                      id="name-1"
+                      name="name"
+                      defaultValue="Pedro Duarte"
+                    />
+                  </div>
+
+                  <div className="grid gap-3">
+                    <Label htmlFor="username-1">Description</Label>
+                    <Textarea
+                      id="username-1"
+                      name="username"
+                      defaultValue="@peduarte"
+                    />
+                  </div>
+                  <div className="flex flex-row gap-4">
+                    <div>
+                      <Label htmlFor="date">Start Date</Label>
+                      <Input
+                        type="date"
+                        id="date"
+                        name="date"
+                        value={date.toISOString().split("T")[0]}
+                        onChange={(e) => setDate(new Date(e.target.value))}
+                        className="rounded-lg border"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="date">Start Date</Label>
+                      <Input
+                        type="date"
+                        id="date"
+                        name="date"
+                        value={date.toISOString().split("T")[0]}
+                        onChange={(e) => setDate(new Date(e.target.value))}
+                        className="rounded-lg border"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <DialogFooter>
+                  <DialogClose asChild>
+                    <Button variant="outline">Cancel</Button>
+                  </DialogClose>
+                  <Button type="submit">Save changes</Button>
+                </DialogFooter>
+              </DialogContent>
+            </form>
+          </Dialog>
         </div>
       </div>
       {loading ? (
