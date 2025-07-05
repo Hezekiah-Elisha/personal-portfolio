@@ -1,5 +1,4 @@
 "use client";
-
 import {
   BadgeCheck,
   Bell,
@@ -31,13 +30,28 @@ import {
 } from "@/components/ui/sidebar";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
-import { getCookie } from "@/lib/session";
+import { deleteCookie, getCookie } from "@/lib/session";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export function NavUser() {
   const [user, setUser] = useState({});
   const { isMobile } = useSidebar();
   const { setTheme, theme } = useTheme();
-  console.log("NavUser rendered with theme:", theme);
+  const router = useRouter();
+
+  const logout = async () => {
+    try {
+      await deleteCookie("user");
+      await deleteCookie("token");
+      // Optionally, redirect to the login page or show a success message
+      toast.success("User logged out successfully");
+
+      router.push("/signin");
+    } catch (error) {
+      console.error("Error during logout:", error);
+    }
+  };
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -165,7 +179,7 @@ export function NavUser() {
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={logout}>
               <LogOut />
               Log out
             </DropdownMenuItem>
