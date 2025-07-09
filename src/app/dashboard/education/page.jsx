@@ -1,6 +1,7 @@
 "use client";
 import { instance } from "@/api";
 import LoadingAnimation from "@/components/LoadingAnimation";
+import TechStach from "@/components/TechStack";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -24,7 +25,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Pencil, RotateCcw, Trash } from "lucide-react";
+import { Github, Pencil, RotateCcw, Trash } from "lucide-react";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
 export default function page() {
@@ -126,12 +128,46 @@ export default function page() {
               <CardHeader>
                 <CardTitle className="capitalize">{education.title}</CardTitle>
                 <CardDescription>Card Description</CardDescription>
-                <CardAction>Card Action</CardAction>
+                <CardAction>
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button variant="outline" className="cursor-pointer">
+                        View
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-[425px] font-space-mono">
+                      <DialogHeader>
+                        <DialogTitle className="capitalize">
+                          {education.title}
+                        </DialogTitle>
+                        <DialogDescription>
+                          {education.description}
+                          <TechStach techStack={education.tech_stack} />
+                        </DialogDescription>
+                      </DialogHeader>
+                      <DialogFooter>
+                        <DialogClose asChild>
+                          <Button variant="outline">Cancel</Button>
+                        </DialogClose>
+                        <Button type="submit">Add Project</Button>
+                      </DialogFooter>
+                    </DialogContent>
+                  </Dialog>
+                </CardAction>
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-muted-foreground">
                   {education.description}
                 </p>
+                <TechStach techStack={education.tech_stack} />
+                <Link
+                  href={education.source_code}
+                  target="_blank"
+                  className="bg-primary/20 hover:bg-primary/30 transition-colors duration-300 text-primary rounded-md p-2 inline-flex items-center gap-2 mt-2 text-sm"
+                >
+                  <Github className="inline mr-1" />
+                  View Source Code
+                </Link>
               </CardContent>
               <CardFooter className="flex flex-row justify-end-safe align-middle items-center w-full gap-2">
                 <div className="flex flex-row gap-2 items-center hover:bg-accent/55 p-2 rounded-md cursor-pointer">
