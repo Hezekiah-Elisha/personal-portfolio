@@ -30,7 +30,7 @@ export const viewport = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`antialiased`}>
+    <html lang="en" className={`antialiased`} suppressHydrationWarning>
       <body className="w-screen h-screen bg-gradient-to-r from-secondary/95 via-secondary/90 to-secondary/85">
         <ThemeProvider
           attribute="class"

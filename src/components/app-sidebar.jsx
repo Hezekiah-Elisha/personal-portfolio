@@ -18,7 +18,6 @@ import {
 import { NavMain } from "@/components/nav-main";
 import { NavProjects } from "@/components/nav-projects";
 import { NavUser } from "@/components/nav-user";
-import { TeamSwitcher } from "@/components/team-switcher";
 import {
   Sidebar,
   SidebarContent,
@@ -29,7 +28,7 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar";
-import { NavExperiences } from "./nav-experiences";
+import { NavExperiences, NavMe } from "./nav-me";
 
 // This is sample data.
 const data = {
@@ -161,18 +160,18 @@ const data = {
   ],
   experiences: [
     {
-      name: "Experience A",
+      name: "Experiences",
       url: "/dashboard/experiences/",
       icon: Frame,
     },
     {
-      name: "Project B",
-      url: "#",
+      name: "Education",
+      url: "/dashboard/education/",
       icon: PieChart,
     },
     {
-      name: "Project C",
-      url: "#",
+      name: "Projects",
+      url: "/dashboard/projects/",
       icon: Map,
     },
   ],
@@ -202,7 +201,7 @@ export function AppSidebar({ ...props }) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavExperiences experiences={data.experiences} />
+        <NavMe experiences={data.experiences} />
         <NavMain items={data.navMain} />
         <NavProjects projects={data.projects} />
       </SidebarContent>
