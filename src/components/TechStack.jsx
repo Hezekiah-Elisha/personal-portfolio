@@ -21,7 +21,7 @@ export default function TechStack({ techStack }) {
   }
 
   return (
-    <div className="flex flex-wrap gap-2 mt-2 font-space-mono" suppressHydrationWarning>
+    <div className="flex flex-wrap gap-2 mt-2 font-space-mono">
       {techStackList.map((tech, index) => (
         <span
           key={index}
