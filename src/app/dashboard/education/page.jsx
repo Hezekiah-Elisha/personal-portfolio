@@ -199,31 +199,6 @@ export default function page() {
                 <CardDescription>
                   {education.degree || "No degree specified"}
                 </CardDescription>
-                <CardAction>
-                  <Dialog>
-                    <DialogTrigger asChild>
-                      <Button variant="outline" className="cursor-pointer">
-                        View
-                      </Button>
-                    </DialogTrigger>
-                    <DialogContent className="sm:max-w-[425px] font-space-mono">
-                      <DialogHeader>
-                        <DialogTitle className="capitalize">
-                          {education.institution}
-                        </DialogTitle>
-                        <DialogDescription>
-                          <TechStack techStack={education.skills} />
-                        </DialogDescription>
-                      </DialogHeader>
-                      <DialogFooter>
-                        <DialogClose asChild>
-                          <Button variant="outline">Cancel</Button>
-                        </DialogClose>
-                        <Button type="submit">Add Project</Button>
-                      </DialogFooter>
-                    </DialogContent>
-                  </Dialog>
-                </CardAction>
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-muted-foreground">
