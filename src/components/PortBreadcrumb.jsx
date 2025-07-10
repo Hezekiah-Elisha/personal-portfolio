@@ -13,7 +13,7 @@ import Link from "next/link";
 
 export default function PortBreadcrumb() {
   const pathname = usePathname();
-  const pathParts = pathname.split("/").filter((part) => part); // Filter out empty parts
+  const pathParts = pathname.split("/").filter((part) => part);
   const capitalizedPathParts = pathParts.map(
     (part) => part.charAt(0).toUpperCase() + part.slice(1)
   );
