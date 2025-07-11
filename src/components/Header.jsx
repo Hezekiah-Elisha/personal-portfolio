@@ -14,12 +14,13 @@ import {
 } from "./ui/sheet";
 import { Button } from "./ui/button";
 import { usePathname } from "next/navigation";
+import NavLink from "./NavLink";
 
 export default function Header() {
   const pathname = usePathname();
-  
+
   // Hide header on dashboard pages
-  if (pathname?.startsWith('/dashboard')) {
+  if (pathname?.startsWith("/dashboard")) {
     return null;
   }
   return (
@@ -31,14 +32,14 @@ export default function Header() {
           </Link>
         </div>
         <div className="hidden md:flex flex-row items-center space-x-4">
-          <Link
+          <NavLink
             href="/"
             className="px-4 py-2 font-space-mono hover:underline hover:underline-offset-8"
           >
             Home
-          </Link>
+          </NavLink>
           <Link
-            href="/"
+            href="/aboutme"
             className="px-4 py-2 font-space-mono hover:underline hover:underline-offset-8"
           >
             AboutMe
@@ -100,8 +101,12 @@ export default function Header() {
                   Sign In
                 </Link>
               </div>
-              <SheetFooter>
-                <Button type="submit">Save changes</Button>
+              <SheetFooter className="font-space-mono">
+                <Link href="/signin" className="w-full hover:cursor-pointer">
+                  <Button type="submit" className="w-full hover:cursor-pointer">
+                    Sign In
+                  </Button>
+                </Link>
                 <SheetClose asChild>
                   <Button variant="outline">Close</Button>
                 </SheetClose>
