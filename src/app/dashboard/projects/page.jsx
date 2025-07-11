@@ -2,6 +2,7 @@
 import { addProjectAction } from "@/actions/project";
 import { instance } from "@/api";
 import LoadingAnimation from "@/components/LoadingAnimation";
+import TechStack from "@/components/TechStack";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -34,7 +35,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { Pencil, RotateCcw, Trash } from "lucide-react";
+import { Link2, Pencil, RotateCcw, Trash } from "lucide-react";
+import Link from "next/link";
 import { useActionState, useEffect, useState } from "react";
 import { toast } from "sonner";
 
@@ -193,32 +195,40 @@ export default function page() {
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {/* {projects.map((project) => (
-            <li key={project.id} className="border p-4 rounded">
-              <h2 className="text-xl font-semibold">{project.title}</h2>
-              <p>{project.description}</p>
-            </li>
-          ))} */}
           {projects.map((project) => (
             <Card key={project.id} className="w-full">
               <CardHeader>
                 <CardTitle className="capitalize">{project.title}</CardTitle>
-                <CardDescription>Card Description</CardDescription>
-                <CardAction>Card Action</CardAction>
+                <CardDescription>
+                  <TechStack techStack={project.tech_stack} />
+                </CardDescription>
+                <CardAction>{project.type}</CardAction>
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-muted-foreground">
                   {project.description}
                 </p>
               </CardContent>
-              <CardFooter className="flex flex-row justify-end-safe align-middle items-center w-full gap-2">
-                <div className="flex flex-row gap-2 items-center hover:bg-accent/55 p-2 rounded-md cursor-pointer">
-                  <Pencil className="text-muted-foreground" />
-                  <span>Edit</span>
+              <CardFooter className="flex flex-col md:flex-row justify-between align-middle items-center w-full gap-2">
+                <div className="">
+                  <Link
+                    href={project.source_code}
+                    target="_blank"
+                    className="hover:underline flex flex-row gap-2 items-center"
+                  >
+                    <Link2 className="size-6 text-muted-foreground" />
+                    <span className="text-xs">Source Code</span>
+                  </Link>
                 </div>
-                <div className="flex flex-row gap-2 items-center hover:bg-red-500/55 p-2 rounded-md cursor-pointer">
-                  <Trash className="text-muted-foreground" />
-                  <span>Delete</span>
+                <div className="flex flex-row gap-2 items-center">
+                  <div className="flex flex-row gap-2 items-center hover:bg-accent/55 p-2 rounded-md cursor-pointer">
+                    <Pencil className="text-muted-foreground" />
+                    <span>Edit</span>
+                  </div>
+                  <div className="flex flex-row gap-2 items-center hover:bg-red-500/55 p-2 rounded-md cursor-pointer">
+                    <Trash className="text-muted-foreground" />
+                    <span>Delete</span>
+                  </div>
                 </div>
               </CardFooter>
             </Card>
