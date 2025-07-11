@@ -1,4 +1,5 @@
 "use client";
+import { addProjectAction } from "@/actions/project";
 import { instance } from "@/api";
 import LoadingAnimation from "@/components/LoadingAnimation";
 import { Button } from "@/components/ui/button";
@@ -23,14 +24,39 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { Pencil, RotateCcw, Trash } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import { useActionState, useEffect, useState } from "react";
+import { toast } from "sonner";
 
 export default function page() {
+  const [state, action, isPending] = useActionState(
+    addProjectAction,
+    undefined
+  );
   const [date, setDate] = useState(new Date());
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (state?.success) {
+      setProjects((prev) => [...prev, state.data]);
+      toast.success("Project added successfully!");
+    }
+    if (state?.success === false && state?.errors) {
+      toast.error("Failed to add project: " + state.errors.global);
+    }
+  }, [state]);
+
   const fetchProjects = async () => {
     setLoading(true);
     try {
@@ -42,9 +68,11 @@ export default function page() {
       setLoading(false);
     }
   };
+
   useEffect(() => {
     fetchProjects();
   }, []);
+
   return (
     <div className="p-2 font-space-mono flex flex-1 flex-col gap-4">
       <div className="flex flex-row items-center justify-between p-4 rounded-md mb-4">
@@ -54,13 +82,13 @@ export default function page() {
             <RotateCcw className="inline hover:rotate-180 transition-transform duration-1000" />
           </Button>
           <Dialog>
-            <form className="font-space-mono">
-              <DialogTrigger asChild>
-                <Button variant="outline" className="cursor-pointer">
-                  Add Project
-                </Button>
-              </DialogTrigger>
-              <DialogContent className="sm:max-w-[425px] font-space-mono">
+            <DialogTrigger asChild>
+              <Button variant="outline" className="cursor-pointer">
+                Add Project
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px] font-space-mono">
+              <form className="font-space-mono space-y-4" action={action}>
                 <DialogHeader>
                   <DialogTitle>Create Work Experience</DialogTitle>
                   <DialogDescription>
@@ -70,48 +98,92 @@ export default function page() {
                 </DialogHeader>
                 <div className="grid gap-4">
                   <div className="grid gap-3">
-                    <Label htmlFor="name-1">Title</Label>
+                    <Label htmlFor="title">Title</Label>
                     <Input
-                      id="name-1"
-                      name="name"
-                      defaultValue="Pedro Duarte"
+                      id="title"
+                      name="title"
+                      placeholder="Project Title"
                     />
+                    {state?.errors?.title && (
+                      <p className="text-red-500 text-sm">
+                        {state.errors.title}
+                      </p>
+                    )}
                   </div>
                   <div className="grid gap-3">
-                    <Label htmlFor="name-1">Tech Stack</Label>
+                    <Label htmlFor="title">type</Label>
+                    <Select name="type" id="type">
+                      <SelectTrigger className="w-full">
+                        <SelectValue placeholder="Select a fruit" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectGroup>
+                          <SelectLabel>What type is it</SelectLabel>
+                          <SelectItem value="full-stack">Full Stack</SelectItem>
+                          <SelectItem value="front-end">Front-end</SelectItem>
+                          <SelectItem value="back-end">Back-end</SelectItem>
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                    {state?.errors?.type && (
+                      <p className="text-red-500 text-sm">
+                        {state.errors.type}
+                      </p>
+                    )}
+                  </div>
+                  <div className="grid gap-3">
+                    <Label htmlFor="tech_stack">Tech Stack</Label>
                     <Input
-                      id="name-1"
-                      name="name"
-                      defaultValue="Pedro Duarte"
+                      id="tech_stack"
+                      name="tech_stack"
+                      placeholder="Tech Stack"
                     />
+                    {state?.errors?.tech_stack && (
+                      <p className="text-red-500 text-sm">
+                        {state.errors.tech_stack}
+                      </p>
+                    )}
                   </div>
 
                   <div className="grid gap-3">
-                    <Label htmlFor="name-1">Source Code</Label>
+                    <Label htmlFor="source_code">Source Code</Label>
                     <Input
-                      id="name-1"
-                      name="name"
-                      defaultValue="Pedro Duarte"
+                      id="source_code"
+                      name="source_code"
+                      placeholder="Source Code URL"
                     />
+                    {state?.errors?.source_code && (
+                      <p className="text-red-500 text-sm">
+                        {state.errors.source_code}
+                      </p>
+                    )}
                   </div>
 
                   <div className="grid gap-3">
                     <Label htmlFor="username-1">Description</Label>
                     <Textarea
-                      id="username-1"
-                      name="username"
-                      defaultValue="@peduarte"
+                      id="description"
+                      name="description"
+                      placeholder="Project Description"
+                      className="resize-none h-24"
                     />
+                    {state?.errors?.description && (
+                      <p className="text-red-500 text-sm">
+                        {state.errors.description}
+                      </p>
+                    )}
                   </div>
                 </div>
                 <DialogFooter>
                   <DialogClose asChild>
                     <Button variant="outline">Cancel</Button>
                   </DialogClose>
-                  <Button type="submit">Add Project</Button>
+                  <Button type="submit" disabled={isPending} className="">
+                    {isPending ? <LoadingAnimation /> : "Add Project"}
+                  </Button>
                 </DialogFooter>
-              </DialogContent>
-            </form>
+              </form>
+            </DialogContent>
           </Dialog>
         </div>
       </div>
