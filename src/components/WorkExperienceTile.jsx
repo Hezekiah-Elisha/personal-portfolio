@@ -29,6 +29,10 @@ export default function WorkExperienceTile() {
       <div className="border border-accent my-4 rounded-md p-2">
         {loading ? (
           <LoadingSkeleton />
+        ) : workExperience.length === 0 ? (
+          <div className="text-muted-foreground">
+            No work experience available.
+          </div>
         ) : (
           <div className="space-y-4">
             {workExperience.map((exp) => (

@@ -27,6 +27,10 @@ export default function EducationTile() {
         {/* Skeleton Loader */}
         {loading ? (
           <LoadingSkeleton />
+        ) : education.length === 0 ? (
+          <div className="text-muted-foreground">
+            No education data available.
+          </div>
         ) : (
           <ul className="space-y-4">
             {education.map((edu) => (
