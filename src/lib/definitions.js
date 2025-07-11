@@ -26,8 +26,8 @@ export const AddEducationFormSchema = z.object({
 export const AddExperienceFormSchema = z.object({
   company: z.string().min(1, { message: "Company is required" }).trim(),
   title: z.string().min(1, { message: "Position is required" }).trim(),
-  startDate: z.string().trim().optional(),
-  endDate: z.string().trim().optional(),
+  start_date: z.string().trim().optional(),
+  end_date: z.string().trim().optional(),
   description: z.string().trim().optional(),
   location: z.string().trim().optional(),
 });
