@@ -37,7 +37,6 @@ export async function addEducationAction(state, formData) {
     console.log("Token retrieved:", token.value);
     return token.value;
   });
-  console.log(`Adding education with token: ${token.value}`);
   try {
     // const parsedData = AddEducationFormSchema.parse(formData);
     const response = await instance.post(

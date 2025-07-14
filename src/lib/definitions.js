@@ -9,8 +9,8 @@ export const AddProjectFormSchema = z.object({
   title: z.string().min(1, { message: "Title is required" }).trim(),
   description: z.string().min(1, { message: "Description is required" }).trim(),
   type: z.string().min(1, { message: "Type is required" }).trim(),
-  techStack: z.string().optional().default(""),
-  sourceCode: z.string().optional().default("https://github.com"),
+  tech_stack: z.string().optional().default(""),
+  source_code: z.string().optional().default("https://github.com"),
 });
 
 export const AddEducationFormSchema = z.object({
@@ -26,8 +26,8 @@ export const AddEducationFormSchema = z.object({
 export const AddExperienceFormSchema = z.object({
   company: z.string().min(1, { message: "Company is required" }).trim(),
   title: z.string().min(1, { message: "Position is required" }).trim(),
-  startDate: z.string().trim().optional(),
-  endDate: z.string().trim().optional(),
+  start_date: z.string().trim().optional(),
+  end_date: z.string().trim().optional(),
   description: z.string().trim().optional(),
   location: z.string().trim().optional(),
 });

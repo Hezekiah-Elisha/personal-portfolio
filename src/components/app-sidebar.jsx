@@ -28,7 +28,7 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar";
-import { NavExperiences, NavMe } from "./nav-me";
+import { NavMe } from "./nav-me";
 
 // This is sample data.
 const data = {
@@ -158,7 +158,7 @@ const data = {
       icon: Map,
     },
   ],
-  experiences: [
+  about: [
     {
       name: "Experiences",
       url: "/dashboard/experiences/",
@@ -201,9 +201,9 @@ export function AppSidebar({ ...props }) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavMe experiences={data.experiences} />
-        <NavMain items={data.navMain} />
-        <NavProjects projects={data.projects} />
+        <NavMe about={data.about} />
+        {/* <NavMain items={data.navMain} /> */}
+        {/* <NavProjects projects={data.projects} /> */}
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={data.user} />

@@ -1,4 +1,5 @@
 "use client";
+import { addExperienceAction } from "@/actions/experience";
 import { instance } from "@/api";
 import LoadingAnimation from "@/components/LoadingAnimation";
 import { Button } from "@/components/ui/button";
@@ -17,12 +18,27 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { RotateCcw } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import { useActionState, useEffect, useState } from "react";
+import { toast } from "sonner";
 
 export default function ExperiencePage() {
+  const [state, action, isPending] = useActionState(
+    addExperienceAction,
+    undefined
+  );
   const [date, setDate] = useState(new Date());
   const [experiences, setExperiences] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (state?.success) {
+      setExperiences((prev) => [...prev, state.data]);
+      toast.success("Experience added successfully!");
+    }
+    if (state?.success === false && state?.errors) {
+      toast.error("Failed to add experience: " + state.errors.global);
+    }
+  }, [state]);
 
   const fetchExperiences = async () => {
     setLoading(true);
@@ -43,19 +59,19 @@ export default function ExperiencePage() {
   return (
     <div className="flex flex-1 flex-col gap-4 p-4 pt-0 font-space-mono">
       <div className="flex flex-row items-center align-middle justify-between mb-4">
-        <h2 className="text-2xl font-bold mb-4">Experiences</h2>
+        <h2 className="text-2xl font-bold mb-4">Work Experiences</h2>
         <div className="flex flex-row items-center gap-2 align-middle justify-end">
           <Button onClick={fetchExperiences} className="" variant="outline">
             <RotateCcw className="inline hover:rotate-180 transition-transform duration-1000" />
           </Button>
           <Dialog>
-            <form className="font-space-mono">
-              <DialogTrigger asChild>
-                <Button variant="outline" className="cursor-pointer">
-                  Create Experience
-                </Button>
-              </DialogTrigger>
-              <DialogContent className="sm:max-w-[425px] font-space-mono">
+            <DialogTrigger asChild>
+              <Button variant="outline" className="cursor-pointer">
+                Create Experience
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px] font-space-mono">
+              <form className="font-space-mono space-y-4" action={action}>
                 <DialogHeader>
                   <DialogTitle>Create Work Experience</DialogTitle>
                   <DialogDescription>
@@ -65,61 +81,83 @@ export default function ExperiencePage() {
                 </DialogHeader>
                 <div className="grid gap-4">
                   <div className="grid gap-3">
-                    <Label htmlFor="name-1">Title</Label>
+                    <Label htmlFor="company">Company Name</Label>
                     <Input
-                      id="name-1"
-                      name="name"
-                      defaultValue="Pedro Duarte"
+                      id="company"
+                      name="company"
+                      placeholder="Company Name"
                     />
+                    {state?.errors?.company && (
+                      <p className="text-red-500 text-sm">
+                        {state.errors.company}
+                      </p>
+                    )}
                   </div>
                   <div className="grid gap-3">
-                    <Label htmlFor="name-1">Company Name</Label>
-                    <Input
-                      id="name-1"
-                      name="name"
-                      defaultValue="Pedro Duarte"
-                    />
-                  </div>
-
-                  <div className="grid gap-3">
-                    <Label htmlFor="name-1">Location</Label>
-                    <Input
-                      id="name-1"
-                      name="name"
-                      defaultValue="Pedro Duarte"
-                    />
+                    <Label htmlFor="title">position</Label>
+                    <Input id="title" name="title" placeholder="position" />
+                    {state?.errors?.title && (
+                      <p className="text-red-500 text-sm">
+                        {state.errors.title}
+                      </p>
+                    )}
                   </div>
 
                   <div className="grid gap-3">
-                    <Label htmlFor="username-1">Description</Label>
+                    <Label htmlFor="location">Location</Label>
+                    <Input
+                      id="location"
+                      name="location"
+                      placeholder="Location"
+                    />
+                    {state?.errors?.location && (
+                      <p className="text-red-500 text-sm">
+                        {state.errors.location}
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="grid gap-3">
+                    <Label htmlFor="description">Description</Label>
                     <Textarea
-                      id="username-1"
-                      name="username"
-                      defaultValue="@peduarte"
+                      id="description"
+                      name="description"
+                      placeholder="description"
                     />
+                    {state?.errors?.description && (
+                      <p className="text-red-500 text-sm">
+                        {state.errors.description}
+                      </p>
+                    )}
                   </div>
                   <div className="flex flex-row gap-4">
                     <div>
-                      <Label htmlFor="date">Start Date</Label>
+                      <Label htmlFor="start_date">Start Date</Label>
                       <Input
                         type="date"
-                        id="date"
-                        name="date"
-                        value={date.toISOString().split("T")[0]}
-                        onChange={(e) => setDate(new Date(e.target.value))}
+                        id="start_date"
+                        name="start_date"
                         className="rounded-lg border"
                       />
+                      {state?.errors?.date && (
+                        <p className="text-red-500 text-sm">
+                          {state.errors.date}
+                        </p>
+                      )}
                     </div>
                     <div>
-                      <Label htmlFor="date">Start Date</Label>
+                      <Label htmlFor="end_date">End Date</Label>
                       <Input
                         type="date"
-                        id="date"
-                        name="date"
-                        value={date.toISOString().split("T")[0]}
-                        onChange={(e) => setDate(new Date(e.target.value))}
+                        id="end_date"
+                        name="end_date"
                         className="rounded-lg border"
                       />
+                      {state?.errors?.date && (
+                        <p className="text-red-500 text-sm">
+                          {state.errors.date}
+                        </p>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -127,10 +165,16 @@ export default function ExperiencePage() {
                   <DialogClose asChild>
                     <Button variant="outline">Cancel</Button>
                   </DialogClose>
-                  <Button type="submit">Save changes</Button>
+                  <Button
+                    type="submit"
+                    disabled={isPending}
+                    className="capitalize"
+                  >
+                    {isPending ? "Adding..." : "Add work Experience"}
+                  </Button>
                 </DialogFooter>
-              </DialogContent>
-            </form>
+              </form>
+            </DialogContent>
           </Dialog>
         </div>
       </div>

@@ -13,13 +13,13 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSepara
 import { Folder, Forward, MoreHorizontal, Trash2 } from "lucide-react";
 import Link from "next/link";
 
-export function NavMe({ experiences }) {
+export function NavMe({ about }) {
   const { isMobile } = useSidebar();
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden">
       <SidebarGroupLabel className="uppercase">All about me</SidebarGroupLabel>
       <SidebarMenu>
-        {experiences.map((item) => (
+        {about.map((item) => (
           <SidebarMenuItem key={item.name}>
             <SidebarMenuButton asChild>
               <Link href={item.url}>
