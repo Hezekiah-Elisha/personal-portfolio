@@ -1,5 +1,4 @@
 "use client";
-import { useEffect, useState } from "react";
 import LoadingSkeleton from "./LoadingSkeleton";
 import { instance } from "@/api";
 import { useQuery } from "@tanstack/react-query";
