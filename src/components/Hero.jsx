@@ -36,7 +36,7 @@ export default function Hero() {
             finding elegant solutions through code.
           </p>
 
-          <div className="align-bottom backdrop-blur-xl p-4 rounded-lg bg-white/30 flex flex-col space-y-2">
+          <div className="align-bottom backdrop-blur-xl p-4 rounded-lg bg-muted flex flex-col space-y-2">
             <h2 className="text-3xl">My Mission</h2>
             <p>
               My mission is to create impactful software that enhances user

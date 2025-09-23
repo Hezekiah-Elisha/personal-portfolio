@@ -33,6 +33,7 @@ import { useEffect, useState } from "react";
 import { deleteCookie, getCookie } from "@/lib/session";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export function NavUser() {
   const [user, setUser] = useState({});
@@ -131,8 +132,10 @@ export function NavUser() {
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem>
-                <BadgeCheck />
-                Account
+                <Link href="/dashboard/profile" className="flex items-center gap-2">
+                  <BadgeCheck />
+                  Account
+                </Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <CreditCard />

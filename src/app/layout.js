@@ -3,6 +3,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import Footer from "@/components/Footer";
 import { Toaster } from "sonner";
+import ReactQueryProvider from "@/components/ReactQueryProvider";
 
 export const metadata = {
   title: "Hezekiah Elisha",
@@ -32,17 +33,19 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`antialiased`} suppressHydrationWarning>
       <body className="w-screen h-screen bg-gradient-to-r from-secondary/95 via-secondary/90 to-secondary/85">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <Header />
-          {children}
-          <Toaster />
-          <Footer />
-        </ThemeProvider>
+        <ReactQueryProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <Header />
+            {children}
+            <Toaster />
+            <Footer />
+          </ThemeProvider>
+        </ReactQueryProvider>
       </body>
     </html>
   );

@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import { Fragment } from "react";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -17,22 +17,30 @@ export default function PortBreadcrumb() {
   const capitalizedPathParts = pathParts.map(
     (part) => part.charAt(0).toUpperCase() + part.slice(1)
   );
+
   return (
-    <Breadcrumb className="text-sm">
+    <Breadcrumb className="text-sm font-space-mono">
       <BreadcrumbList>
         {capitalizedPathParts.map((part, index) => (
-          <BreadcrumbItem key={index}>
-            <BreadcrumbLink asChild>
-              <Link
-                href={`/${String(
-                  pathParts.slice(0, index + 1).join("/")
-                ).trim()}`}
-              >
+          <Fragment key={index}>
+            <BreadcrumbItem>
+              {index === capitalizedPathParts.length - 1 ? (
                 <BreadcrumbPage>{String(part).trim()}</BreadcrumbPage>
-              </Link>
-            </BreadcrumbLink>
+              ) : (
+                <BreadcrumbLink asChild>
+                  <Link
+                    href={`/${String(
+                      pathParts.slice(0, index + 1).join("/")
+                    ).trim()}`}
+                    className="text-muted-foreground hover:outline-offset-8 hover:text-primary text-sm"
+                  >
+                    {String(part).trim()}
+                  </Link>
+                </BreadcrumbLink>
+              )}
+            </BreadcrumbItem>
             {index < capitalizedPathParts.length - 1 && <BreadcrumbSeparator />}
-          </BreadcrumbItem>
+          </Fragment>
         ))}
       </BreadcrumbList>
     </Breadcrumb>
